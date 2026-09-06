@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "ASTRA Career Operating System"
+description = "A premium interactive career operating system connecting student career passports, skill intelligence, roadmaps, opportunities, universities, and recruiters in one connected demo product."
+version = "1.0.0"
+id = "artifacts/astra-career-os"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20745
+
+[services.development]
+run = "pnpm --filter @workspace/astra-career-os run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/astra-career-os", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/astra-career-os/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20745"
+BASE_PATH = "/"
